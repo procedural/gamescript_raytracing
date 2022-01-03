@@ -341,7 +341,7 @@ let l12z = 1.5;
 ertSetFloat3(device, light1, "v0", l10x, l10y, l10z);
 ertSetFloat3(device, light1, "v1", l11x, l11y, l11z);
 ertSetFloat3(device, light1, "v2", l12x, l12y, l12z);
-ertSetFloat3(device, light1, "L",	2.0, 2.0, 0.8);
+ertSetFloat3(device, light1, "L", 2.0, 2.0, 0.8);
 ertCommit(device, light1);
 let light0primp = globalArrayPersistentNew8Bit("light0primp", 8);
 var light0prim = pointerGetRaw64Bit(light0primp, 0);
