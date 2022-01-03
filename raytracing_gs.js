@@ -456,12 +456,12 @@ if (pointerIsNull(shape0prim) == true) {
 }
 let shape1primp = globalArrayPersistentNew8Bit("shape1primp", 8);
 var shape1prim = pointerGetRaw64Bit(shape1primp, 0);
-let shape1Matrix = globalArrayNew8Bit("shape1Matrix", ertAffineSpace3fGetSizeOfInBytes());
-ertAffineSpace3fSetDefaultInitialize(shape1Matrix, 0);
-ertAffineSpace3fTranslate(shape1Matrix, 0, -3, 0, 0);
-let shape1MatrixArray = globalArrayNew8Bit("shape1MatrixArray", 12 * 4);
-ertAffineSpace3fCopyToArray(shape1Matrix, 0, shape1MatrixArray, 0);
 if (pointerIsNull(shape1prim) == true) {
+	let shape1Matrix = globalArrayNew8Bit("shape1Matrix", ertAffineSpace3fGetSizeOfInBytes());
+	ertAffineSpace3fSetDefaultInitialize(shape1Matrix, 0);
+	ertAffineSpace3fTranslate(shape1Matrix, 0, -3, 0, 0);
+	let shape1MatrixArray = globalArrayNew8Bit("shape1MatrixArray", 12 * 4);
+	ertAffineSpace3fCopyToArray(shape1Matrix, 0, shape1MatrixArray, 0);
 	shape1prim = ertNewShapePrimitive(device, shape, glassmaterial, shape1MatrixArray, 0);
 	pointerSetRaw64Bit(shape1primp, 0, shape1prim);
 }
