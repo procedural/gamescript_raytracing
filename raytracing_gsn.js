@@ -18,22 +18,22 @@ printDraw("Frame: " + numberToString(getCurrentFrame()));
 {
 	let cameraVector = defaultCameraGetVector();
 	let cameraVersor = defaultCameraGetVersor();
-	if (cameraVector[0] == 0 && cameraVector[1] == 0 && cameraVector[2] ==10 &&
-	    cameraVersor[0] == 0 && cameraVersor[1] == 0 && cameraVersor[2] == 0 && cameraVersor[3] == 1)
+	if (cameraVector[0] == 0 && cameraVector[1] == 0 && cameraVector[2] == 10 &&
+	    cameraVersor[0] == 0 && cameraVersor[1] == 0 && cameraVersor[2] == 0  && cameraVersor[3] == 1)
 	{
 		defaultCameraSetVector(-3.359291, 0.254475,-3.232193);
 		defaultCameraSetVersor( 0.003961, 0.978337, 0.018788, -0.206169);
 	}
 }
 
-if (0) {
+if (false) {
 	printDraw(
-		numberToString(defaultCameraGetVector()[0])+" "+
-		numberToString(defaultCameraGetVector()[1])+" "+
-		numberToString(defaultCameraGetVector()[2])+" "+
-		numberToString(defaultCameraGetVersor()[0])+" "+
-		numberToString(defaultCameraGetVersor()[1])+" "+
-		numberToString(defaultCameraGetVersor()[2])+" "+
+		numberToString(defaultCameraGetVector()[0]) + " " +
+		numberToString(defaultCameraGetVector()[1]) + " " +
+		numberToString(defaultCameraGetVector()[2]) + " " +
+		numberToString(defaultCameraGetVersor()[0]) + " " +
+		numberToString(defaultCameraGetVersor()[1]) + " " +
+		numberToString(defaultCameraGetVersor()[2]) + " " +
 		numberToString(defaultCameraGetVersor()[3])
 	);
 }
@@ -311,15 +311,15 @@ if (pointerIsNull(light0) == true) {
 	light0 = ertNewLight(device, "trianglelight");
 	pointerSetRaw64Bit(light0p, 0, light0);
 }
-let l00x = 1;
-let l00y =-1;
-let l00z = 1.5;
-let l01x =-2;
-let l01y = 5;
-let l01z = 1.5;
-let l02x =-5;
-let l02y = 5;
-let l02z = 1.5;
+let l00x =  1.0;
+let l00y = -1.0;
+let l00z =  1.5;
+let l01x = -2.0;
+let l01y =  5.0;
+let l01z =  1.5;
+let l02x = -5.0;
+let l02y =  5.0;
+let l02z =  1.5;
 ertSetFloat3(device, light0, "v0", l00x, l00y, l00z);
 ertSetFloat3(device, light0, "v1", l01x, l01y, l01z);
 ertSetFloat3(device, light0, "v2", l02x, l02y, l02z);
@@ -331,15 +331,15 @@ if (pointerIsNull(light1) == true) {
 	light1 = ertNewLight(device, "trianglelight");
 	pointerSetRaw64Bit(light1p, 0, light1);
 }
-let l10x = 1;
-let l10y =-1;
-let l10z = 1.5;
-let l11x =-5;
-let l11y = 5;
-let l11z = 1.5;
-let l12x =-2;
-let l12y =-1;
-let l12z = 1.5;
+let l10x =  1.0;
+let l10y = -1.0;
+let l10z =  1.5;
+let l11x = -5.0;
+let l11y =  5.0;
+let l11z =  1.5;
+let l12x = -2.0;
+let l12y = -1.0;
+let l12z =  1.5;
 ertSetFloat3(device, light1, "v0", l10x, l10y, l10z);
 ertSetFloat3(device, light1, "v1", l11x, l11y, l11z);
 ertSetFloat3(device, light1, "v2", l12x, l12y, l12z);
@@ -467,7 +467,7 @@ if (pointerIsNull(shape1prim) == true) {
 	shape1prim = ertNewShapePrimitive(device, shape, glassmaterial, shape1MatrixArray, 0);
 	pointerSetRaw64Bit(shape1primp, 0, shape1prim);
 }
-let primitivesCount = 6;
+let primitivesCount = 6.0;
 let primitives = globalArrayNew8Bit("primitives", primitivesCount * 8);
 pointerSetRaw64Bit(primitives, 0 * 8, groundshapeprim);
 pointerSetRaw64Bit(primitives, 1 * 8, shape0prim);
