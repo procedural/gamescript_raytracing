@@ -1,4 +1,4 @@
-// For Game Script Native from Jan 2, 2022.
+// For Game Script Native from Feb 19, 2022.
 
 //fn NumberArray() {
 //	return [];
@@ -543,8 +543,26 @@ if (pointerGetUnsignedInteger(currentMode, 0) == 1) {
 	ertRenderFrame(device, renderer, camera, scene, tonemapper, framebuffer, getCurrentFrame());
 	ertSwapBuffers(device, framebuffer);
 	let fbp = ertMapFrameBuffer(device, framebuffer);
-	pointerDrawPixels(fbp, 0, 1800, 900, 6408, 5126); // GL_RGBA, GL_FLOAT
+	//pointerDrawPixels(fbp, 0, 1800, 900, 6408, 5126); // GL_RGBA, GL_FLOAT
+	let pixels = imageNew("pixels", 1800, 900);
+	for (var y = 900 - 1; y >= 0; y -= 1) {
+		for (var x = 0; x < 1800; x += 1) {
+			var r = 0.0;
+			var g = 0.0;
+			var b = 0.0;
+			let offset = ((((900.0 - 1.0) - y) * 1800.0) + x) * 4.0;
+			r = pointerGetNumber(fbp, offset + 0.0);
+			g = pointerGetNumber(fbp, offset + 1.0);
+			b = pointerGetNumber(fbp, offset + 2.0);
+			r = r > 1.0 ? 1.0 : r;
+			g = g > 1.0 ? 1.0 : g;
+			b = b > 1.0 ? 1.0 : b;
+			imageSetColor(pixels, x, y, r * 255.0, g * 255.0, b * 255.0, 255);
+		}
+	}
+	imageUpdate(pixels);
 	ertUnmapFrameBuffer(device, framebuffer);
+	imageDraw(pixels, 0, 0, 0, 1800, 900);
 }
 
 }
