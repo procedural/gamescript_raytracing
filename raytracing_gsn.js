@@ -545,19 +545,19 @@ if (pointerGetUnsignedInteger(currentMode, 0) == 1) {
 	let fbp = ertMapFrameBuffer(device, framebuffer);
 	//pointerDrawPixels(fbp, 0, 1800, 900, 6408, 5126); // GL_RGBA, GL_FLOAT
 	let pixels = imageNew("pixels", 1800, 900);
-	for (var y = 900 - 1; y >= 0; y -= 1) {
+	for (var y = 0; y < 900; y += 1) {
 		for (var x = 0; x < 1800; x += 1) {
 			var r = 0.0;
 			var g = 0.0;
 			var b = 0.0;
-			let offset = ((((900.0 - 1.0) - y) * 1800.0) + x) * 4.0;
+			let offset = ((y * 1800.0) + x) * 4.0;
 			r = pointerGetNumber(fbp, offset + 0.0);
 			g = pointerGetNumber(fbp, offset + 1.0);
 			b = pointerGetNumber(fbp, offset + 2.0);
 			r = r > 1.0 ? 1.0 : r;
 			g = g > 1.0 ? 1.0 : g;
 			b = b > 1.0 ? 1.0 : b;
-			imageSetColor(pixels, x, y, r * 255.0, g * 255.0, b * 255.0, 255);
+			imageSetColor(pixels, x, (900.0 - 1.0) - y, r * 255.0, g * 255.0, b * 255.0, 255);
 		}
 	}
 	imageUpdate(pixels);
