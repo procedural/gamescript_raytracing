@@ -543,20 +543,86 @@ if (pointerGetUnsignedInteger(currentMode, 0) == 1) {
 	let fbp = ertMapFrameBuffer(device, framebuffer);
 	//pointerDrawPixels(fbp, 0, 1800, 900, 6408, 5126); // GL_RGBA, GL_FLOAT
 	let pixels = imageNew("pixels", 1800, 900);
-	for (var y = 0; y < 900; y += 1) {
-		for (var x = 0; x < 1800; x += 1) {
-			var r = 0.0;
-			var g = 0.0;
-			var b = 0.0;
-			let offset = ((y * 1800.0) + x) * 4.0;
-			r = pointerGetNumber(fbp, offset + 0.0);
-			g = pointerGetNumber(fbp, offset + 1.0);
-			b = pointerGetNumber(fbp, offset + 2.0);
-			r = r > 1.0 ? 1.0 : r;
-			g = g > 1.0 ? 1.0 : g;
-			b = b > 1.0 ? 1.0 : b;
-			imageSetColor(pixels, x, (900.0 - 1.0) - y, r * 255.0, g * 255.0, b * 255.0, 255);
+	if (true) {
+		for (var y = 0; y < 900; y += 1) {
+			for (var x = 0; x < 1800; x += 1) {
+				var r = 0.0;
+				var g = 0.0;
+				var b = 0.0;
+				let offset = ((y * 1800.0) + x) * 4.0;
+				r = pointerGetNumber(fbp, offset + 0.0);
+				g = pointerGetNumber(fbp, offset + 1.0);
+				b = pointerGetNumber(fbp, offset + 2.0);
+				r = r > 1.0 ? 1.0 : r;
+				g = g > 1.0 ? 1.0 : g;
+				b = b > 1.0 ? 1.0 : b;
+				imageSetColor(pixels, x, (900.0 - 1.0) - y, r * 255.0, g * 255.0, b * 255.0, 255);
+			}
 		}
+	} else {
+		//let widthHeight = globalArrayNew8Bit("widthHeight", 2 * 4);
+		//pointerSetInteger(widthHeight, 0, 1800);
+		//pointerSetInteger(widthHeight, 1, 900);
+		//libGameScriptExternalProcedureCall3(fbp, imageGetPixelsPointer(pixels), widthHeight);
+		
+		//#if 0
+		//cd /opt/GameScript/
+		//rm -f libgame_script_external_procedure.so
+		//gcc -shared -fPIC game_script_external_procedure.c -o libgame_script_external_procedure.so
+		//exit
+		//#endif
+		//
+		//// cl /LD game_script_external_procedure.c
+		//
+		//#ifdef _WIN32
+		//#define GS_EXPORT __declspec(dllexport)
+		//#else
+		//#define GS_EXPORT
+		//#endif
+		//
+		//typedef union InternalUnionConverter {
+		//  double number;
+		//  void * voidpointer;
+		//} InternalUnionConverter;
+		//
+		//GS_EXPORT void libGameScriptExternalProcedureCall2(double a, double b) {
+		//  volatile int x = 0;
+		//}
+		//
+		//GS_EXPORT void libGameScriptExternalProcedureCall3(double a, double b, double c) {
+		//  InternalUnionConverter _a;
+		//  InternalUnionConverter _b;
+		//  InternalUnionConverter _c;
+		//  _a.number = a;
+		//  _b.number = b;
+		//  _c.number = c;
+		//  float *         pixelsRead  = (float *)_a.voidpointer;
+		//  unsigned char * pixelsWrite = (unsigned char *)_b.voidpointer;
+		//  int *           widthHeight = (int *)_c.voidpointer;
+		//  
+		//  int w = widthHeight[0];
+		//  int h = widthHeight[1];
+		//
+		//  for (int y = h - 1; y >= 0; y -= 1) {
+		//    for (int x = 0; x < w; x += 1) {
+		//      float r = 0.f;
+		//      float g = 0.f;
+		//      float b = 0.f;
+		//      unsigned offset = ((y * w) + x) * 4;
+		//      unsigned offsetInvertedY = ((((h - 1) - y) * w) + x) * 4;
+		//      r = pixelsRead[offset + 0];
+		//      g = pixelsRead[offset + 1];
+		//      b = pixelsRead[offset + 2];
+		//      r = r > 1.f ? 1.f : r;
+		//      g = g > 1.f ? 1.f : g;
+		//      b = b > 1.f ? 1.f : b;
+		//      pixelsWrite[offsetInvertedY + 0] = (unsigned char)(r * 255.f);
+		//      pixelsWrite[offsetInvertedY + 1] = (unsigned char)(g * 255.f);
+		//      pixelsWrite[offsetInvertedY + 2] = (unsigned char)(b * 255.f);
+		//      pixelsWrite[offsetInvertedY + 3] = 255;
+		//    }
+		//  }
+		//}
 	}
 	imageUpdate(pixels);
 	ertUnmapFrameBuffer(device, framebuffer);
