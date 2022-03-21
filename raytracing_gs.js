@@ -41,7 +41,7 @@ defaultCameraSetMoveSpeed(0.025);
 //setCurrentFrame(0);
 
 let suzanne = meshNew("suzanne");
-let verticesString = stringReadFromFile("data/suzanne.txt");
+let verticesString = stringReadFromFile(getExeDirectoryPath() + "data/suzanne.txt");
 var verticesComponentsCount = (strlenWithNullChar(verticesString)-1) / 10;
 
 let trianglesNormal = globalArrayPersistentNew8Bit("trianglesNormal", (verticesComponentsCount / 9) * 3 * 4);
