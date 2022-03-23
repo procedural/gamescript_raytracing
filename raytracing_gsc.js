@@ -1,6 +1,6 @@
 // For Game Script C from Feb 27, 2022.
 
-#include "/opt/GameScriptC/gamescriptc.h"
+#include "/opt/github/procedural/gamescript_c_header/gamescriptc.h"
 
 void meshConvertToIndexMesh(Number mesh) { // Number
 	meshClearIndices(mesh);
