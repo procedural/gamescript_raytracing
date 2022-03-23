@@ -43,7 +43,7 @@ defaultCameraSetMoveSpeed(0.025);
 //setCurrentFrame(0);
 
 let suzanne = meshNew("suzanne");
-let verticesString = stringReadFromFile("data/suzanne.txt");
+let verticesString = stringReadFromFile(getExeDirectoryPath() + "data/suzanne.txt");
 var verticesComponentsCount = (strlenWithNullChar(verticesString)-1) / 10;
 
 let trianglesNormal = globalArrayPersistentNew8Bit("trianglesNormal", (verticesComponentsCount / 9) * 3 * 4);
@@ -545,8 +545,8 @@ if (pointerGetUnsignedInteger(currentMode, 0) == 1) {
 	let fbp = ertMapFrameBuffer(device, framebuffer);
 	//pointerDrawPixels(fbp, 0, 1800, 900, 6408, 5126); // GL_RGBA, GL_FLOAT
 	let pixels = imageNew("pixels", 1800, 900);
-	for y in stride(from: 0, to: 900, by: 1) {
-		for x in stride(from: 0, to: 1800, by: 1) {
+	for y in stride(from: 0.0, to: 900.0, by: 1.0) {
+		for x in stride(from: 0.0, to: 1800.0, by: 1.0) {
 			var r = 0.0;
 			var g = 0.0;
 			var b = 0.0;
