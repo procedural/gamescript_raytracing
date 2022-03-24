@@ -9,7 +9,7 @@ void meshConvertToIndexMesh(Number mesh) { // Number
 	}
 }
 
-void frame() {
+cfn frame() {
 
 framestart();
 
