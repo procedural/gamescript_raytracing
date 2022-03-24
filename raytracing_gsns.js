@@ -287,7 +287,7 @@ if (pointerIsNull(camera) == true) {
 let hdrimagep = globalArrayPersistentNew8Bit("hdrimagep", 8);
 var hdrimage = pointerGetRaw64Bit(hdrimagep, 0);
 if (pointerIsNull(hdrimage) == true) {
-	hdrimage = ertNewImageFromFile(device, "data/lines.ppm");
+	hdrimage = ertNewImageFromFile(device, getExeDirectoryPath() + "data/lines.ppm");
 	pointerSetRaw64Bit(hdrimagep, 0, hdrimage);
 }
 let hdrilightp = globalArrayPersistentNew8Bit("hdrilightp", 8);
