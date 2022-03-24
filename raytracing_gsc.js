@@ -308,7 +308,7 @@ if (pointerIsNull(camera) == true) {
 Number hdrimagep = globalArrayPersistentNew8Bit("hdrimagep", 8);
 Number hdrimage = pointerGetRaw64Bit(hdrimagep, 0);
 if (pointerIsNull(hdrimage) == true) {
-	hdrimage = ertNewImageFromFile(device, "data/lines.ppm");
+	hdrimage = ertNewImageFromFile(device, strjoin(getExeDirectoryPath(), "data/lines.ppm"));
 	pointerSetRaw64Bit(hdrimagep, 0, hdrimage);
 }
 Number hdrilightp = globalArrayPersistentNew8Bit("hdrilightp", 8);
