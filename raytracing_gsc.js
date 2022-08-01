@@ -1,6 +1,10 @@
 // For Game Script C from Feb 27, 2022.
 
+#ifdef _WIN32
+#include "C:/github/procedural/gamescript_c_header/gamescriptc.h"
+#else
 #include "/opt/github/procedural/gamescript_c_header/gamescriptc.h"
+#endif
 
 void meshConvertToIndexMesh(Number mesh) { // Number
 	meshClearIndices(mesh);
