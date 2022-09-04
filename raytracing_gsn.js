@@ -240,10 +240,10 @@ if (isRerun() == true) {
 		if (pointerIsNull(device) == false) {
 			for (var i = 0; i < len(handles); i += 1) {
 				if (pointerIsNull(handles[i]) == false) {
-					ertDecRef(device, handles[i]);
+					//ertDecRef(device, handles[i]);
 				}
 			}
-			ertDestroyDevice(device);
+			//ertDestroyDevice(device);
 		}
 	}
 }
