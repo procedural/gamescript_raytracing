@@ -236,15 +236,6 @@ if (isRerun() == true) {
     append(handles, pointerGetRaw64Bit(globalArrayPersistentGetPointer("scenep"), 0)); globalArrayPersistentDelete("scenep");
 
     let device = pointerGetRaw64Bit(globalArrayPersistentGetPointer("devicep"), 0); globalArrayPersistentDelete("devicep");
-
-    if (pointerIsNull(device) == false) {
-      for (var i = 0; i < len(handles); i += 1) {
-        if (pointerIsNull(handles[i]) == false) {
-          //ertDecRef(device, handles[i]);
-        }
-      }
-      //ertDestroyDevice(device);
-    }
   }
 }
 let devicep = globalArrayPersistentNew8Bit("devicep", 8);
@@ -252,6 +243,7 @@ var device = pointerGetRaw64Bit(devicep, 0);
 if (pointerIsNull(device) == true) {
   device = ertCreateDevice("default", 0);
   pointerSetRaw64Bit(devicep, 0, device);
+  onRerunCallErtDestroyDevice(device);
 }
 let rendererp = globalArrayPersistentNew8Bit("rendererp", 8);
 var renderer = pointerGetRaw64Bit(rendererp, 0);
@@ -263,6 +255,7 @@ if (pointerIsNull(renderer) == true) {
   ertSetFloat1(device, renderer, "clampRadianceIfMoreThan", 10.0);
   ertSetFloat1(device, renderer, "clampRadianceTo", 5.0);
   ertCommit(device, renderer);
+  onRerunCallErtDecRef(device, renderer);
 }
 let tonemapperp = globalArrayPersistentNew8Bit("tonemapperp", 8);
 var tonemapper = pointerGetRaw64Bit(tonemapperp, 0);
@@ -271,24 +264,28 @@ if (pointerIsNull(tonemapper) == true) {
   pointerSetRaw64Bit(tonemapperp, 0, tonemapper);
   ertSetFloat1(device, tonemapper, "gamma", 1.0);
   ertCommit(device, tonemapper);
+  onRerunCallErtDecRef(device, tonemapper);
 }
 let framebufferp = globalArrayPersistentNew8Bit("framebufferp", 8);
 var framebuffer = pointerGetRaw64Bit(framebufferp, 0);
 if (pointerIsNull(framebuffer) == true) {
   framebuffer = ertNewFrameBuffer(device, "RGB_FLOAT32", 1800, 900, 1);
   pointerSetRaw64Bit(framebufferp, 0, framebuffer);
+  onRerunCallErtDecRef(device, framebuffer);
 }
 let camerap = globalArrayPersistentNew8Bit("camerap", 8);
 var camera = pointerGetRaw64Bit(camerap, 0);
 if (pointerIsNull(camera) == true) {
   camera = ertNewCamera(device, "depthoffield");
   pointerSetRaw64Bit(camerap, 0, camera);
+  onRerunCallErtDecRef(device, camera);
 }
 let hdrimagep = globalArrayPersistentNew8Bit("hdrimagep", 8);
 var hdrimage = pointerGetRaw64Bit(hdrimagep, 0);
 if (pointerIsNull(hdrimage) == true) {
   hdrimage = ertNewImageFromFile(device, "data/lines.ppm");
   pointerSetRaw64Bit(hdrimagep, 0, hdrimage);
+  onRerunCallErtDecRef(device, hdrimage);
 }
 let hdrilightp = globalArrayPersistentNew8Bit("hdrilightp", 8);
 var hdrilight = pointerGetRaw64Bit(hdrilightp, 0);
@@ -296,6 +293,7 @@ if (pointerIsNull(hdrilight) == true) {
   hdrilight = ertNewLight(device, "hdrilight");
   pointerSetRaw64Bit(hdrilightp, 0, hdrilight);
   ertSetImage(device, hdrilight, "image", hdrimage);
+  onRerunCallErtDecRef(device, hdrilight);
 }
 ertSetFloat3(device, hdrilight, "L", 0.005, 0.005, 0.005);
 ertCommit(device, hdrilight);
@@ -304,12 +302,14 @@ var hdrilightprim = pointerGetRaw64Bit(hdrilightprimp, 0);
 if (pointerIsNull(hdrilightprim) == true) {
   hdrilightprim = ertNewLightPrimitive(device, hdrilight, pointerGetNull(), 0);
   pointerSetRaw64Bit(hdrilightprimp, 0, hdrilightprim);
+  onRerunCallErtDecRef(device, hdrilightprim);
 }
 let light0p = globalArrayPersistentNew8Bit("light0p", 8);
 var light0 = pointerGetRaw64Bit(light0p, 0);
 if (pointerIsNull(light0) == true) {
   light0 = ertNewLight(device, "trianglelight");
   pointerSetRaw64Bit(light0p, 0, light0);
+  onRerunCallErtDecRef(device, light0);
 }
 let l00x =  1.0;
 let l00y = -1.0;
@@ -330,6 +330,7 @@ var light1 = pointerGetRaw64Bit(light1p, 0);
 if (pointerIsNull(light1) == true) {
   light1 = ertNewLight(device, "trianglelight");
   pointerSetRaw64Bit(light1p, 0, light1);
+  onRerunCallErtDecRef(device, light1);
 }
 let l10x =  1.0;
 let l10y = -1.0;
@@ -350,12 +351,14 @@ var light0prim = pointerGetRaw64Bit(light0primp, 0);
 if (pointerIsNull(light0prim) == true) {
   light0prim = ertNewLightPrimitive(device, light0, pointerGetNull(), 0);
   pointerSetRaw64Bit(light0primp, 0, light0prim);
+  onRerunCallErtDecRef(device, light0prim);
 }
 let light1primp = globalArrayPersistentNew8Bit("light1primp", 8);
 var light1prim = pointerGetRaw64Bit(light1primp, 0);
 if (pointerIsNull(light1prim) == true) {
   light1prim = ertNewLightPrimitive(device, light1, pointerGetNull(), 0);
   pointerSetRaw64Bit(light1primp, 0, light1prim);
+  onRerunCallErtDecRef(device, light1prim);
 }
 let groundmaterialp = globalArrayPersistentNew8Bit("groundmaterialp", 8);
 var groundmaterial = pointerGetRaw64Bit(groundmaterialp, 0);
@@ -364,6 +367,7 @@ if (pointerIsNull(groundmaterial) == true) {
   pointerSetRaw64Bit(groundmaterialp, 0, groundmaterial);
   ertSetFloat3(device, groundmaterial, "reflectance", 1.0, 0.15, 0.15);
   ertCommit(device, groundmaterial);
+  onRerunCallErtDecRef(device, groundmaterial);
 }
 let materialp = globalArrayPersistentNew8Bit("materialp", 8);
 var material = pointerGetRaw64Bit(materialp, 0);
@@ -372,12 +376,14 @@ if (pointerIsNull(material) == true) {
   pointerSetRaw64Bit(materialp, 0, material);
   ertSetFloat3(device, material, "reflectance", 1.0, 1.0, 1.0);
   ertCommit(device, material);
+  onRerunCallErtDecRef(device, material);
 }
 let glassmaterialp = globalArrayPersistentNew8Bit("glassmaterialp", 8);
 var glassmaterial = pointerGetRaw64Bit(glassmaterialp, 0);
 if (pointerIsNull(glassmaterial) == true) {
   glassmaterial = ertNewMaterial(device, "Glass");
   pointerSetRaw64Bit(glassmaterialp, 0, glassmaterial);
+  onRerunCallErtDecRef(device, glassmaterial);
 }
 ertSetFloat3(device, glassmaterial, "transmission", 1.0, 1.0, 1.0);
 ertSetFloat1(device, glassmaterial, "etaOutside", 1.0);
@@ -429,6 +435,7 @@ if (pointerIsNull(groundshape) == true) {
   ertSetArray(device, groundshape, "indices", "int3", indices, 6 / 3, 3 * 4, 0);
   ertCommit(device, groundshape);
   ertClear(device, groundshape);
+  onRerunCallErtDecRef(device, groundshape);
 }
 let shapep = globalArrayPersistentNew8Bit("shapep", 8);
 var shape = pointerGetRaw64Bit(shapep, 0);
@@ -443,18 +450,21 @@ if (pointerIsNull(shape) == true) {
   ertSetArray(device, shape, "indices", "int3", indices, meshGetIndicesCount(suzanne) / 3, 3 * 4, 0);
   ertCommit(device, shape);
   ertClear(device, shape);
+  onRerunCallErtDecRef(device, shape);
 }
 let groundshapeprimp = globalArrayPersistentNew8Bit("groundshapeprimp", 8);
 var groundshapeprim = pointerGetRaw64Bit(groundshapeprimp, 0);
 if (pointerIsNull(groundshapeprim) == true) {
   groundshapeprim = ertNewShapePrimitive(device, groundshape, groundmaterial, pointerGetNull(), 0);
   pointerSetRaw64Bit(groundshapeprimp, 0, groundshapeprim);
+  onRerunCallErtDecRef(device, groundshapeprim);
 }
 let shape0primp = globalArrayPersistentNew8Bit("shape0primp", 8);
 var shape0prim = pointerGetRaw64Bit(shape0primp, 0);
 if (pointerIsNull(shape0prim) == true) {
   shape0prim = ertNewShapePrimitive(device, shape, material, pointerGetNull(), 0);
   pointerSetRaw64Bit(shape0primp, 0, shape0prim);
+  onRerunCallErtDecRef(device, shape0prim);
 }
 let shape1primp = globalArrayPersistentNew8Bit("shape1primp", 8);
 var shape1prim = pointerGetRaw64Bit(shape1primp, 0);
@@ -466,6 +476,7 @@ if (pointerIsNull(shape1prim) == true) {
   ertAffineSpace3fCopyToArray(shape1Matrix, 0, shape1MatrixArray, 0);
   shape1prim = ertNewShapePrimitive(device, shape, glassmaterial, shape1MatrixArray, 0);
   pointerSetRaw64Bit(shape1primp, 0, shape1prim);
+  onRerunCallErtDecRef(device, shape1prim);
 }
 let primitivesCount = 6.0;
 let primitives = globalArrayNew8Bit("primitives", primitivesCount * 8);
@@ -480,6 +491,7 @@ var scene = pointerGetRaw64Bit(scenep, 0);
 if (pointerIsNull(scene) == true) {
   scene = ertNewScene(device, "default default", primitives, 0, primitivesCount);
   pointerSetRaw64Bit(scenep, 0, scene);
+  onRerunCallErtDecRef(device, scene);
 }
 let cameraMatrix = globalArrayNew8Bit("cameraMatrix", ertAffineSpace3fGetSizeOfInBytes());
 var p = defaultCameraGetVector();
